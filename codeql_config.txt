@@ -1,0 +1,57 @@
+# .github/codeql/codeql-config.yml
+name: "CodeQL Advanced Configuration"
+
+# Disable default queries and use custom suite
+disable-default-queries: false
+
+# Custom query packs and suites
+packs:
+  - codeql/javascript-queries:codeql-suites/javascript-security-extended.qls
+  - codeql/python-queries:codeql-suites/python-security-and-quality.qls
+  - codeql/java-queries:codeql-suites/java-security-extended.qls
+
+# Additional custom queries
+queries:
+  - name: Custom Security Queries
+    uses: ./.github/codeql/custom-queries/
+
+# Path filters for analysis
+paths:
+  - src/
+  - lib/
+  - app/
+  - services/
+
+# Exclude paths from analysis  
+paths-ignore:
+  - "**/*.test.*"
+  - "**/*.spec.*"
+  - "**/test/**"
+  - "**/tests/**"
+  - "**/node_modules/**"
+  - "**/vendor/**"
+  - "**/__pycache__/**"
+  - "**/build/**"
+  - "**/dist/**"
+
+# Database configuration
+database:
+  # Specify working directory for analysis
+  working-directory: .
+  
+  # Custom build commands for complex projects
+  build-command: |
+    echo "Custom build process initiated"
+    # Add your build commands here
+    
+# External configuration files
+external-repository-token: ${{ secrets.GITHUB_TOKEN }}
+
+# Custom extraction configuration
+extractors:
+  python:
+    python_setup_version: "3.11"
+    index_import_aware: true
+  javascript:
+    typescript_version: "5.0"
+    include_node_modules: false

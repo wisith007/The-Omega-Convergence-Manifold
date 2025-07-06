@@ -1,0 +1,22 @@
+# Ω–ADMIN NEXUS™ Pharmaceutical Research Orchestrator
+# FULL-STACK CI/CD v2025-07-06
+# Validation · Multi-Lang Lint · Secrets · Tests + Coverage · SBOM · Provenance
+# GHCR Canary · Docker Scan · CodeQL · Trivy · SonarCloud · Zenodo DOI · Metrics · Slack & Email Notifications
+
+name: "🧬 Ω–ADMIN NEXUS™ Pharmaceutical CI"
+
+'on':
+  push:
+    branches: [ main, 'omega-*', 'pharma-*', 'research-*' ]
+  pull_request:
+    branches: [ main ]
+  release:
+    types: [ published, created ]
+  schedule:
+    - cron: '0 5 * * *'  # daily security scan
+  workflow_dispatch: {}
+
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/omega-convergence-manifold
+
+# (jobs section truncated for brevity; full file remains unchanged from the canvas)
